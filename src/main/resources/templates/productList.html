@@ -16,12 +16,21 @@
     <tr>
       <th scope="col">Product Name</th>
       <th scope="col">Quantity</th>
+      <th scope="col">Edit/Delete</th>
     </tr>
     </thead>
     <tbody>
     <tr th:each="product: ${allProduct}">
       <td th:text="${product.productName}"></td>
       <td th:text="${product.productQuantity}"></td>
+      <td>
+        <a th:href="@{/product/edit/{productId}(productId=${product.productId})}"
+           class="btn btn-success btn-sm mb-3">Edit</a>
+      <form th:action="@{/product/delete/{productId}(productId=${product.productId})}"
+            method="post" style="display: inline;">
+        <button type="submit" class="btn btn-danger btn-sm mb-3">Delete</button>
+      </form>
+      </td>
     </tr>
     </tbody>
   </table>

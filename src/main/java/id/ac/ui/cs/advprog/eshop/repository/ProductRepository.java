@@ -43,4 +43,9 @@ public class ProductRepository {
         }
         return null;
     }
+
+    public void delete(String id){
+        Optional<Product> productOptional = Optional.ofNullable(findbyId(id));
+        productOptional.ifPresent(product -> productData.remove(product));
+    }
 }

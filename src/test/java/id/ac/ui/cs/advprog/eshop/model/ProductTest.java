@@ -21,7 +21,7 @@ public class ProductTest {
 
     @Test
     void getProductName() {
-        assertEquals("ayam goreng", this.product.getProductName());
+        assertEquals("Ayam goreng", this.product.getProductName());
     }
 
     @Test

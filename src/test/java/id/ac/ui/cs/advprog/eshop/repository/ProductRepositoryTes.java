@@ -64,4 +64,32 @@ class ProductRepositoryTest {
         assertEquals(product2.getProductId(), savedProduct.getProductId());
         assertFalse(productIterator.hasNext());
     }
+
+    @Test
+    void testEditProduct() {
+        Product product = new Product();
+        product.setProductId("eb558e9f-1c39-460e-8860-71af6af63bd6");
+        product.setProductName("Sampo Cap Bambang");
+        product.setProductQuantity(100);
+        productRepository.create(product);
+
+        Product updatedProduct = new Product();
+        updatedProduct.setProductName("Sampo Cap Papachicken");
+        updatedProduct.setProductQuantity(150);
+
+        Product editedProduct = productRepository.edit(product.getProductId(), updatedProduct);
+        assertEquals(product.getProductId(), editedProduct.getProductId());
+        assertEquals("Sampo Cap Papachicken", editedProduct.getProductName());
+        assertEquals(150, editedProduct.getProductQuantity());
+    }
+
+    @Test
+    void testEditNonExistentProduct() {
+        Product product = new Product();
+        product.setProductName("Sampo Cap Editan");
+        product.setProductQuantity(20);
+
+        Product editedProduct = productRepository.edit("eb558e9f-1c39-460e-8860-71af6af63bd6", product);
+        assertNull(editedProduct);
+    }
 }

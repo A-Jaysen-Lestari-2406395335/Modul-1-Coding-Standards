@@ -5,8 +5,10 @@ val junitJupiterVersion = "5.9.1"
 
 plugins {
     java
+    jacoco
     id("org.springframework.boot") version "3.5.10"
     id("io.spring.dependency-management") version "1.1.7"
+    id("org.sonarqube") version "4.4.1.3373"
 }
 
 group = "id.ac.ui.cs.advprog"
@@ -61,4 +63,23 @@ tasks.register<Test>("functionalTest") {
 }
 tasks.withType<Test>().configureEach {
     useJUnitPlatform()
+}
+
+tasks.test {
+    filter {
+        excludeTestsMatching("*FunctionalTest")
+    }
+    finalizedBy(tasks.jacocoTestReport)
+}
+
+tasks.jacocoTestReport {
+    dependsOn(tasks.test)
+}
+
+sonar {
+    properties {
+        property("sonar.projectKey", "A-Jaysen-Lestari-2406395335_Modul-2-CI-CD-DevOpsFile")
+        property("sonar.organization", "a-jaysen-lestari-2406395335")
+        property("sonar.host.url", "https://sonarcloud.io")
+    }
 }
